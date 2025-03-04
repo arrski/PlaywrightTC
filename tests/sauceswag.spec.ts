@@ -1,11 +1,12 @@
 import { test, expect, type Page } from '@playwright/test';
 import { UserLogsIn as UserLogsIn } from './helpers/userLogin';
 
+//let's open the same page before each test
 test.beforeEach(async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 });
 
-
+//let's log in with bad credentials to see if the error message is displayed
 test.describe('test if loging fails sucessfully', () => {
   test('test if loging fails sucessfully', async ({ page }) => {
 
@@ -16,7 +17,7 @@ test.describe('test if loging fails sucessfully', () => {
   });
 });
 
-
+//let's log in with good credentials to see if the products page is displayed
 test.describe('test if loging is sucessfully', () => {
   test('test if loging is sucessfully', async ({ page }) => {
 
@@ -25,7 +26,7 @@ test.describe('test if loging is sucessfully', () => {
   });
 });
 
-
+//let's log in with good credentials and add 3 items to the basket and confirm that there are 3 remove buttons
 test.describe('test if add to cart button works', () => {
   test('test add to cart buttons', async ({ page }) => {
 
@@ -42,7 +43,7 @@ test.describe('test if add to cart button works', () => {
   });
 });
 
-
+//let's log in with good credentials and add 3 items to the basket and remove them all and confirm that there are no items in the basket
 test.describe('test if remove from cart button works', () => {
   test('test remove from cart buttons', async ({ page }) => {
 
@@ -63,7 +64,7 @@ test.describe('test if remove from cart button works', () => {
   });
 });
 
-
+//let's log in with all types of users and confirm that the correct error message is displayed if needed
 [
   { user: 'locked_out_user'},
   { user: 'problem_user'},
@@ -83,7 +84,7 @@ test.describe('test if remove from cart button works', () => {
 });
 
 
-
+//function to add required items to the basket
 async function addItemToBasket(page: Page, numberOfItems: number) {
   const addToCartButtons = page.getByRole('button', {name: 'ADD TO CART'});
 
@@ -96,7 +97,7 @@ async function addItemToBasket(page: Page, numberOfItems: number) {
   }
 }
 
-
+//function to remove all items from the basket
 async function removeItemFromBasket(items) {
   const count = await items.count();
   console.log(`Found ${count} 'REMOVE' buttons before removing`);
